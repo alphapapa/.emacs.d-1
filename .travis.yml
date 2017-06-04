@@ -1,5 +1,7 @@
 language: generic
 sudo: false
+git:
+  submodules: false
 env:
   - EVM_EMACS=emacs-24.5-travis
   - EVM_EMACS=emacs-25.2-travis
