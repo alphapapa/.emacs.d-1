@@ -9,6 +9,8 @@ test:
 
 travis-setup:
 	cp Cask.travis Cask
+	mkdir vendor
+	mkdir dev
 	cask install
 
 travis: travis-setup
