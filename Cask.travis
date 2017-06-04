@@ -4,7 +4,10 @@
 (source "melpa-stable" "http://stable.melpa.org/packages/")
 (source org)
 
+(depends-on "use-package")
+(depends-on "hydra")
 (depends-on "org-plus-contrib")
+(depends-on "smartparens")
 
 (development
   (depends-on "buttercup")
