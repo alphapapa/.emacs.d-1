@@ -2,6 +2,7 @@
 (source "marmalade" "http://marmalade-repo.org/packages/")
 (source "melpa" "http://melpa.org/packages/")
 (source "melpa-stable" "http://stable.melpa.org/packages/")
+(source org)
 
 (depends-on "org-plus-contrib")
 
