@@ -1,4 +1,4 @@
-# .emacs.d
+# .emacs.d [![Build Status](https://travis-ci.org/Fuco1/.emacs.d.svg?branch=master)](https://travis-ci.org/Fuco1/.emacs.d)
 
 The pre-git history is at: https://bitbucket.org/Fuco/.emacs.d/
 
