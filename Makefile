@@ -11,10 +11,9 @@ travis-setup:
 	cp Cask.travis Cask
 	mkdir dev
 	cask install
-	cd projects
-	git clone https://github.com/Fuco1/dired-hacks
-	git clone https://github.com/Fuco1/org-clock-budget
-	git clone https://github.com/Fuco1/org-timeline
+	git clone https://github.com/Fuco1/dired-hacks projects/dired-hacks
+	git clone https://github.com/Fuco1/org-clock-budget projects/org-clock-budget
+	git clone https://github.com/Fuco1/org-timeline projects/org-timeline
 	cd ..
 	find . -name '*.el'
 
