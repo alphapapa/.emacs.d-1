@@ -4,6 +4,7 @@
 (source "melpa-stable" "http://stable.melpa.org/packages/")
 (source org)
 
+(depends-on "async")
 (depends-on "dired+")
 (depends-on "elfeed")
 (depends-on "hydra")
@@ -12,6 +13,7 @@
 (depends-on "use-package")
 
 (development
+  (depends-on "assess")
   (depends-on "buttercup")
   (depends-on "f")
   (depends-on "dash")
