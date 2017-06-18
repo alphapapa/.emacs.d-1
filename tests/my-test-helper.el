@@ -6,7 +6,6 @@
 
 (require 'my-bootstrap)
 (my-setup-load-path)
-(message "%s" load-path)
 
 (setq dired-filter-verbose nil)
 
