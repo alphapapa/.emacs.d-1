@@ -7,6 +7,7 @@
 (depends-on "async")
 (depends-on "dired+")
 (depends-on "elfeed")
+(depends-on "eimp")
 (depends-on "hydra")
 (depends-on "org-plus-contrib")
 (depends-on "smartparens")
