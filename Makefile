@@ -11,6 +11,11 @@ travis-setup:
 	cp Cask.travis Cask
 	mkdir dev
 	cask install
+	mkdir projects
+	cd projects
+	git clone https://github.com/Fuco1/dired-hacks
+	git clone https://github.com/Fuco1/org-clock-budget
+	git clone https://github.com/Fuco1/org-timeline
 
 travis: travis-setup
 	cask exec buttercup -L tests \
