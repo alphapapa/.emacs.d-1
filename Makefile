@@ -16,12 +16,14 @@ travis-setup:
 	git clone https://github.com/Fuco1/org-clock-budget
 	git clone https://github.com/Fuco1/org-timeline
 
-orgfiles = files/$(*.org)
+tangled_files = $(patsubst %.org, %-tangled.el, $(wildcard files/*.org))
 
 files/%-tangled.el: files/%.org travis-setup
-	cask exec emacs --batch --eval "(org-babel-tangle-file \"$<\")"
+	cask exec emacs --batch --eval "(progn (require 'ob-tangle) (org-babel-tangle-file \"$<\"))"
 
-travis: travis-setup $(orgfiles)
+tangle-org-files: $(tangled_files)
+
+travis: travis-setup tangle-org-files
 	cask exec buttercup -L tests \
                     -L site-lisp \
                     -L files \
