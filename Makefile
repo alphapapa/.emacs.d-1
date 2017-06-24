@@ -1,5 +1,16 @@
 .PHONY: bootstrap test travis travis-setup
 
+# ORG MODE
+
+tangled_files = $(patsubst %.org, %-tangled.el, $(wildcard files/*.org))
+
+files/%-tangled.el: files/%.org
+	cask exec emacs --batch --eval "(progn (require 'ob-tangle) (org-babel-tangle-file \"$<\"))"
+
+tangle: $(tangled_files)
+
+# TESTING
+
 test:
 	cask exec buttercup -L tests \
                     -L site-lisp \
@@ -7,7 +18,9 @@ test:
                     --eval "(setq undercover--send-report nil)" \
                     ${BUTTERCUP_OPTIONS} tests
 
-travis-setup:
+# TRAVIS
+
+travis-before-install:
 	cp Cask.travis Cask
 	mkdir dev
 	cask install
@@ -15,21 +28,16 @@ travis-setup:
 	git clone https://github.com/Fuco1/org-clock-budget projects/org-clock-budget
 	git clone https://github.com/Fuco1/org-timeline projects/org-timeline
 
-tangled_files = $(patsubst %.org, %-tangled.el, $(wildcard files/*.org))
+travis:
+	$(MAKE) travis-before-install
+	$(MAKE) tangle
+	$(MAKE) test
 
-files/%-tangled.el: files/%.org travis-setup
-	cask exec emacs --batch --eval "(progn (require 'ob-tangle) (org-babel-tangle-file \"$<\"))"
-
-tangle-org-files: $(tangled_files)
-
-travis: travis-setup tangle-org-files
-	cask exec buttercup -L tests \
-                    -L site-lisp \
-                    -L files \
-                    --eval "(setq undercover--send-report nil)" \
-                    tests
+# BOOTSTRAP
 
 bootstrap:
 	cask exec emacs --batch -L site-lisp -l my-bootstrap -f my-create-cache
 
-all: bootstrap test
+all:
+	$(MAKE) bootstrap
+	$(MAKE) tangle
