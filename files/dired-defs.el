@@ -253,6 +253,31 @@ Also used for highlighting.")
 (add-hook 'dired-mode-hook 'my-dired-init)
 (add-hook 'dired-after-readin-hook 'my-format-available-space)
 
+(defun my-dired-collapse-directories ()
+  "Inline directories with just single file/directory child."
+  (let ((inhibit-read-only t))
+    (save-excursion
+      (goto-char (point-min))
+      (while (not (eobp))
+        (save-excursion
+          (when (and (looking-at-p dired-re-dir)
+                     (not (eolp)))
+            (let ((path (dired-get-filename t t)) files)
+              (while (and (file-directory-p path)
+                          (setq files (f-entries path))
+                          (= 1 (length files)))
+                (setq path (concat path "/" (f-filename (car files)))))
+              (when (> (length path) 1)
+                (dired-move-to-filename)
+                (forward-char)
+                (delete-region (point) (line-end-position))
+                (save-excursion
+                  (insert path))
+                (delete-char -1)))))
+        (forward-line 1)))))
+
+(add-hook 'dired-after-readin-hook 'my-dired-collapse-directories)
+
 ;; revert the dired buffers automatically after these operations.
 (--each '(dired-do-rename
           dired-do-copy
